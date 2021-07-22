@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+
+  <title>KAYAK</title>
+  <body>
+    <div class="gradient">
+      <div class="grid-container">
+        <div class="box1"><b>K</b></div>
+        <div class="box2"><b>A</b></div>
+        <div class="box3"><b>Y</b></div>
+        <div class="box4"><b>A</b></div>
+        <div class="box5"><b>K</b></div>
+       
+      </div>
+      <div class="heading"><b>Tours</b></div>
+    </div>
+    <div class="title">
+      <h1>All the  tours for cheap prices.</h1>
+    </div>
+    <div class="form" name="myform" id="myForm">
+      <div class="ONE">
+        <select
+          name="season"
+          id="SeasonType"
+          size="1"
+          style="width: 239px; height: 54px; background-color: #f1f4f7 ;font-size:16px; "
+        >
+          <option
+            value=" "
+            selected="selected"
+            style="width: 239px; height: 40px;font-size:16px;"
+          >
+            Season
+          </option>
+        </select>
+      </div>
+
+      <div class="ONE-1">
+        <select
+          name="Category"
+          id="CategoryType"
+          size="1"
+          style="
+            width: 239px;
+            height: 54px;
+            background-color: #f1f4f7;
+            color: #131a1f;font-size:16px;
+          "
+        >
+          <option
+            value=""
+            selected="selected"
+            style="width: 239px; height: 40px;  background-color:#f1f4f7;color: #6d8494;font-size:16px;"
+          >
+            Category
+          </option>
+        </select>
+      </div>
+      <div class="ONE-2">
+        <select
+          name="destination"
+          id="destinationType"
+          size="1"
+          style="width: 239px; height: 54px; background-color: #f1f4f7;font-size:16px;"
+        >
+          <option
+            value=""
+            selected="selected"
+            style="width: 239px; height: 40px; background-color: #fafafc;;font-size:16px; "
+          >
+            Destination
+          </option>
+        </select>
+      </div>
+
+      <button onClick="onChange()" id="search" class="search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 54 54">
+          <path
+            fill="currentColor"
+            d="M38.25,35.59l-4.42-4.41a10.14,10.14,0,1,0-3.65,3.65l4.41,4.42a2.59,2.59,0,0,0,3.66-3.66ZM17.53,26.1a7.58,7.58,0,1,1,7.58,7.58A7.59,7.59,0,0,1,17.53,26.1Z"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div class="cake">
+      <img id="displayDestination" src="" style=width:783px;height:500px;/>
+      <div class="place" id="place">
+        <p>DESTINATION </p>
+      </div>
+    </div>
+  </div>
+  </body>
+  <script >
+    var SeasonObject = {
+  SUMMER: {
+    WONDER: ["GIZA, EGYPT", "MACHU PICCHU, PERU"],
+    WINE: ["BORDEAUX, FRANCE", "SONOMA, UNITED STATES", "TUSCANY, ITALY"],
+  },
+  WINTER: {
+    WONDER: ["COURCHEVEL, FRANCE"],
+    SKI: ["ZERMATT, SWIZTERLAND", "WHISTLER, CANADA"],
+  },
+  AUTUMN: {
+    WONDER: ["MACHU PICCHU, PERU"],
+  },
+
+  SPRING: [""],
+};
+window.onload = function () {
+  var SeasonType = document.getElementById("SeasonType"),
+    CategoryType = document.getElementById("CategoryType"),
+    destinationType = document.getElementById("destinationType");
+  for (var Season in SeasonObject) {
+    SeasonType.options[SeasonType.options.length] = new Option(Season, Season);
+  }
+  SeasonType.onchange = function () {
+    CategoryType.length = 1; // remove all options bar first
+    destinationType.length = 1; // remove all options bar first
+    if (this.selectedIndex < 1) return; // done
+    for (var Category in SeasonObject[this.value]) {
+      CategoryType.options[CategoryType.options.length] = new Option(
+        Category,
+        Category
+      );
+    }
+  };
+  SeasonType.onchange(); // reset in case page is reloaded
+  CategoryType.onchange = function () {
+    destinationType.length = 1; // remove all options bar first
+    if (this.selectedIndex < 1) return; // done
+    var destination = SeasonObject[SeasonType.value][this.value];
+    for (var i = 0; i < destination.length; i++) {
+      destinationType.options[destinationType.options.length] = new Option(
+        destination[i],
+        destination[i]
+      );
+    }
+  };
+};
+
+function onChange() {
+  console.log("press");
+  if (destinationType.value === "MACHU PICCHU, PERU") {
+    var Image = document.getElementById("displayDestination");
+    Image.src = "machu-picchu-45618.jpg";
+    document.getElementById("place").innerHTML="MACHU PICCHU, PERU";
+    document.getElementById("place").style.color="white";
+  } else if (destinationType.value === "GIZA, EGYPT") {
+    var Image = document.getElementById("displayDestination");
+    Image.src = "giza-25999.jpg";
+    document.getElementById("place").innerHTML="GIZA, EGYPT";
+    document.getElementById("place").style.color="white";
+  } else if (destinationType.value === "TUSCANY, ITALY") {
+    var Image = document.getElementById("displayDestination");
+    Image.src = "tuscany-79382.jpg";
+    document.getElementById("place").innerHTML="TUSCANY, ITALY";
+    document.getElementById("place").style.color="white";
+  } else if (destinationType.value === "BORDEAUX, FRANCE") {
+    var Image = document.getElementById("displayDestination");
+    Image.src = "bordeaux-8375.jpg";
+    document.getElementById("place").innerHTML="BORDEAUX, FRANCE";
+    document.getElementById("place").style.color="white";
+  } else if (destinationType.value === "SONOMA, UNITED STATES") {
+    var Image = document.getElementById("displayDestination");
+    Image.src = "sonoma-36284.jpg";
+    document.getElementById("place").innerHTML="SONOMA, UNITED STATES";
+    document.getElementById("place").style.color="white";
+  } else if (destinationType.value === "COURCHEVEL, FRANCE") {
+    var Image = document.getElementById("displayDestination");
+    Image.src = "courchevel-34083.jpg";
+    document.getElementById("place").innerHTML="COURCHEVEL, FRANCE";
+    document.getElementById("place").style.color="white";
+  } else if (destinationType.value === "WHISTLER, CANADA") {
+    var Image = document.getElementById("displayDestination");
+    Image.src = "whistler-40386.jpg";
+    document.getElementById("place").innerHTML="WHISTLER, CANADA";
+    document.getElementById("place").style.color="white";
+  } else if (destinationType.value === "ZERMATT, SWIZTERLAND") {
+    var Image = document.getElementById("displayDestination");
+    Image.src = "zermatt-40374.jpg";
+    document.getElementById("place").innerHTML="ZERMATT,SWITZERLAND";
+    document.getElementById("place").style.color="white";
+    
+  }
+}
+
+  </script>
+</html>
